@@ -5,7 +5,7 @@ Xamarin.iOS recipe to translate text from one language and speak it in another
 
 Introduction
 -------
-This sample shows how to take text in one language, translate it and speak it in another language. The translation is achieved using [Microsoft Translator](http://www.microsoft.com/en-us/translator/).
+This sample shows how to take text in one language, translate it and speak it in another language. The translation is achieved using [Microsoft Translator](http://www.microsoft.com/en-us/translator/). Once the translation is returned the iOS 7 AVSpeechSynthesizer is used to speak utterance. This sample defaults to use English (United States) text and translate it to Spanish; Castilian (Spain). You can select the from and to buttons to change the languages.
 
 ![Combined](Screenshots/ViewController.png)
 
