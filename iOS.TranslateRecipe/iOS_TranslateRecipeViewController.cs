@@ -17,8 +17,8 @@ namespace iOS.TranslateRecipe
 		Languages.Code from;
 		Languages.Code to;
 		bool fromTapped;
-		const string CLIENT_ID = "XamarinSpeechRecipe";
-		const string CLIENT_SECRET = "RR/KyahK54fNUsKGyvE7dt2BBJCLSHLR3ZwnWq3eh/0=";
+		const string CLIENT_ID = "YOUR CLIENT ID HERE";
+		const string CLIENT_SECRET = "YOUR CLIENT SECRET HERE";
 
 		public iOS_TranslateRecipeViewController () : base ("iOS_TranslateRecipeViewController", null)
 		{
