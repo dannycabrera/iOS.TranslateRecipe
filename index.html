@@ -38,15 +38,142 @@
 
 <p>This sample shows how to take text in one language, translate it and speak it in another language. The translation is achieved using <a href="http://www.microsoft.com/en-us/translator/">Microsoft Translator</a>. Once the translation is returned the iOS 7 AVSpeechSynthesizer is used to speak utterance. This sample defaults to use English (United States) text and translate it to Spanish; Castilian (Spain). You can select the from and to buttons to change the languages.</p>
 
-<p><img src="Screenshots/ViewController.png" alt="Combined"></p>
+<p><img src="https://github.com/dannycabrera/iOS.TranslateRecipe/blob/master/Screenshots/ViewController.png?raw=true" alt="Combined"></p>
+
+<p><a href="https://github.com/dannycabrera/iOS.TranslateRecipe/wiki/Using-sample">Using sample</a></p>
 
 <h2>
 <a name="code" class="anchor" href="#code"><span class="octicon octicon-link"></span></a>Code</h2>
 
-<p>I am going to break down the code in 3 parts iOS 7 Speech, Microsoft Translator and Languages used.</p>
+<p>I am going to break down the code walkthrough in 3 parts iOS 7 Speech, Microsoft Translator and Languages.</p>
 
 <h1>
 <a name="ios-7-speech" class="anchor" href="#ios-7-speech"><span class="octicon octicon-link"></span></a>iOS 7 Speech</h1>
+
+<p>The speech API in iOS 7 is a breeze to work with. There is nothing more than the few lines of code below and telling iOS what text to speak <code>translatedText</code>, the language to use <code>to.AppleCode</code> and a few other settings such as speech rate rate, volume &amp; pitch.</p>
+
+<pre><code>// Setup speech and speak
+var speechSynthesizer = new AVSpeechSynthesizer ();
+var speechUtterance = new AVSpeechUtterance (translatedText) {
+    Rate = AVSpeechUtterance.MaximumSpeechRate/10,
+    Voice = AVSpeechSynthesisVoice.FromLanguage (to.AppleCode),
+    Volume = 0.5f,
+    PitchMultiplier = 1.0f
+};
+speechSynthesizer.SpeakUtterance (speechUtterance);
+</code></pre>
+
+<h1>
+<a name="microsoft-translator" class="anchor" href="#microsoft-translator"><span class="octicon octicon-link"></span></a>Microsoft Translator</h1>
+
+<p>Most of the code in this sample handles the communication with Microsoft Translator hosted on Azure. </p>
+
+<h2>
+<a name="access-token" class="anchor" href="#access-token"><span class="octicon octicon-link"></span></a>Access Token</h2>
+
+<p>In order to make calls to Azure we first need to request a token. The class <code>AdmAuthentication.cs</code> handles invoking an HTTP POST to get our token. Since tokens expire every 10 minutes a timer is created to trigger a refresh every 9 minutes.</p>
+
+<pre><code>// Renew the token every specfied minutes
+accessTokenRenewer = new Timer(new TimerCallback(OnTokenExpiredCallback)
+                               , this
+                               , TimeSpan.FromMinutes(RefreshTokenDuration)
+                               , TimeSpan.FromMilliseconds(-1));
+</code></pre>
+
+<p>The class AdmAccessToken.cs stores the properties of the requested token we will then use to invoke translation calls.</p>
+
+<pre><code>public class AdmAccessToken
+{
+    // The access token that you can use to authenticate you access to the Microsoft Translator API.
+    public string access_token { get; set; }
+
+    // The format of the access token.
+    public string token_type { get; set; }
+
+    // The number of seconds for which the access token is valid.
+    public string expires_in { get; set; }
+
+    // The domain for which this token is valid.
+    public string scope { get; set; }
+}
+</code></pre>
+
+<h2>
+<a name="translate-call" class="anchor" href="#translate-call"><span class="octicon octicon-link"></span></a>Translate call</h2>
+
+<p>Microsft Translator has different interfaces of which we use the HTTP interface for this sample. The translation is invoked from the <code>AdmTranslate.cs</code> class. All we need to pass over to Azure is our token, text to translate and the from/to language which then returns an XML string with our translation.</p>
+
+<h1>
+<a name="languages" class="anchor" href="#languages"><span class="octicon octicon-link"></span></a>Languages</h1>
+
+<p>Both iOS 7 and Microsoft Translator support various languages. Unfortunately, not all languages are supported on both sides so I created a list that both support located in the class <code>Languages.cs</code>.</p>
+
+<p>Each language code consists of 3 properties:</p>
+
+<pre><code>/// &lt;summary&gt;
+/// Azure data market translator language code.
+/// &lt;/summary&gt;
+/// &lt;value&gt;The adm code.&lt;/value&gt;
+/// &lt;remarks&gt;http://msdn.microsoft.com/en-us/library/hh456380.aspx&lt;/remarks&gt;
+public string AdmCode { get; set; }
+
+/// &lt;summary&gt;
+/// Apple speech voice code.
+/// &lt;/summary&gt;
+/// &lt;value&gt;The apple code.&lt;/value&gt;
+/// &lt;remarks&gt;Available from: AVSpeechSynthesisVoice.GetSpeechVoices()&lt;/remarks&gt;
+public string AppleCode { get; set; }
+
+/// &lt;summary&gt;
+/// Gets or sets the name of the country.
+/// &lt;/summary&gt;
+/// &lt;value&gt;The name of the country.&lt;/value&gt;
+public string CountryName { get; set; }
+</code></pre>
+
+<pre><code>public static List&lt;Code&gt; GetLanguages()
+{
+    var codes = new List&lt;Code&gt; ();
+    codes.Add (new Code("ar", "ar-SA", "Arabic (Saudi Arabia)"));
+    codes.Add (new Code("cs", "cs-CZ", "Czech (Czech Republic)"));
+    codes.Add (new Code("da", "da-DK", "Danish (Denmark)"));
+    codes.Add (new Code("de", "de-DE", "German (Germany)"));
+    codes.Add (new Code("el", "el-GR", "Greek, Modern (Greece)"));
+    codes.Add (new Code("en", "en-AU", "English (Australia)"));
+    codes.Add (new Code("en", "en-GB", "English (United Kingdom)"));
+    codes.Add (new Code("en", "en-IE", "English (Ireland)"));
+    codes.Add (new Code("en", "en-US", "English (United States)"));
+    codes.Add (new Code("en", "en-ZA", "English (South Africa)"));
+    codes.Add (new Code("es", "es-ES", "Spanish; Castilian (Spain)"));
+    codes.Add (new Code("es", "es-MX", "Spanish; Castilian (Mexico)"));
+    codes.Add (new Code("fi", "fi-FI", "Finnish (Finland)"));
+    codes.Add (new Code("fr", "fr-CA", "French (Canada)"));
+    codes.Add (new Code("fr", "fr-FR", "French (France)"));
+    codes.Add (new Code("hi", "hi-IN", "Hindi (India)"));
+    codes.Add (new Code("hu", "hu-HU", "Hungarian (Hungary)"));
+    codes.Add (new Code("id", "id-ID", "Indonesian (Indonesia)"));
+    codes.Add (new Code("it", "it-IT", "Italian (Italy)"));
+    codes.Add (new Code("ja", "ja-JP", "Japanese (Japan)"));
+    codes.Add (new Code("ko", "ko-KR", "Korean (Korea, Republic of)"));
+    codes.Add (new Code("nl", "nl-BE", "Dutch (Belgium)"));
+    codes.Add (new Code("nl", "nl-NL", "Dutch (Netherlands)"));
+    codes.Add (new Code("no", "no-NO", "Norwegian (Norway)"));
+    codes.Add (new Code("pl", "pl-PL", "Polish (Poland)"));
+    codes.Add (new Code("pt", "pt-BR", "Portuguese (Brazil)"));
+    codes.Add (new Code("pt", "pt-PT", "Portuguese (Portugal)"));
+    codes.Add (new Code("ro", "ro-RO", "Romanian, Moldavian, Moldovan (Romania)"));
+    codes.Add (new Code("ru", "ru-RU", "Russian (Russian Federation)"));
+    codes.Add (new Code("sk", "sk-SK", "Slovak (Slovakia)"));
+    codes.Add (new Code("sv", "sv-SE", "Swedish (Sweden)"));
+    codes.Add (new Code("th", "th-TH", "Thai (Thailand)"));
+    codes.Add (new Code("tr", "tr-TR", "Turkish (Turkey)"));
+    codes.Add (new Code("zh-CHS", "zh-CN", "Chinese (China)"));
+    codes.Add (new Code("zh-CHT", "zh-HK", "Chinese (Hong Kong)"));
+    codes.Add (new Code("zh-CHT", "zh-TW", "Chinese (Taiwan, Province of China)"));
+
+    return codes;
+}
+</code></pre>
 
 <h2>
 <a name="notes" class="anchor" href="#notes"><span class="octicon octicon-link"></span></a>Notes</h2>
