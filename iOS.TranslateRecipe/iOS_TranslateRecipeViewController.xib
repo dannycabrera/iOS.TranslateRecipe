@@ -7,6 +7,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="iOS_TranslateRecipeViewController">
             <connections>
                 <outlet property="fromLanguage" destination="gaY-Oe-lMw" id="CpN-mR-2Bp"/>
+                <outlet property="imageView" destination="GJx-6a-mdh" id="TAX-m3-KaT"/>
                 <outlet property="textField" destination="Jna-8x-mMe" id="qui-F5-NjP"/>
                 <outlet property="toLanguage" destination="Ky9-GL-PDP" id="SGr-WH-F0M"/>
                 <outlet property="translate" destination="ce3-29-Qe1" id="bQ4-DO-Hrj"/>
@@ -39,13 +40,24 @@
                     </state>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ce3-29-Qe1">
-                    <rect key="frame" x="79" y="201" width="163" height="55"/>
+                    <rect key="frame" x="79" y="169" width="163" height="55"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="25"/>
                     <state key="normal" title="Translate">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                 </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="GJx-6a-mdh">
+                    <rect key="frame" x="20" y="238" width="23" height="24"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Translations by Microsoft® Translator" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="je6-hW-4OQ">
+                    <rect key="frame" x="51" y="241" width="249" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>

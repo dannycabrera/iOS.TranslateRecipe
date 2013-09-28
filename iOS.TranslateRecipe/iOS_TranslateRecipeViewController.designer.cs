@@ -16,6 +16,9 @@ namespace iOS.TranslateRecipe
 		MonoTouch.UIKit.UIButton fromLanguage { get; set; }
 
 		[Outlet]
+		MonoTouch.UIKit.UIImageView imageView { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UITextField textField { get; set; }
 
 		[Outlet]
@@ -26,9 +29,9 @@ namespace iOS.TranslateRecipe
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (translate != null) {
-				translate.Dispose ();
-				translate = null;
+			if (imageView != null) {
+				imageView.Dispose ();
+				imageView = null;
 			}
 
 			if (fromLanguage != null) {
@@ -44,6 +47,11 @@ namespace iOS.TranslateRecipe
 			if (toLanguage != null) {
 				toLanguage.Dispose ();
 				toLanguage = null;
+			}
+
+			if (translate != null) {
+				translate.Dispose ();
+				translate = null;
 			}
 		}
 	}

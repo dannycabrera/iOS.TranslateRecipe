@@ -37,7 +37,8 @@ namespace iOS.TranslateRecipe
 			from = Languages.Util.GetCode ("English (United States)");
 			to = Languages.Util.GetCode ("Spanish; Castilian (Spain)");
 
-			// Set UI titles
+			// Set UI
+			imageView.Image = UIImage.FromFile ("microsoftTranslatorIcon.png"); 
 			fromLanguage.SetTitle ("From: " + from.CountryName, UIControlState.Normal);
 			toLanguage.SetTitle ("To: " + to.CountryName, UIControlState.Normal);
 		}
