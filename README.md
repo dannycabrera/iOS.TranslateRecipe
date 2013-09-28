@@ -9,17 +9,15 @@ This sample shows how to take text in one language, translate it and speak it in
 
 ![Combined](Screenshots/ViewController.png)
 
-Setup
+Notes
 -------
 1. Sample requires iOS 7
 2. [Setting up Azure Marketplace & Microsoft Translator API](https://github.com/dannycabrera/iOS.TranslateRecipe/wiki/Setting-up-Azure-Marketplace-&-Microsoft-Translator-API)
-
-[Using sample](https://github.com/dannycabrera/iOS.TranslateRecipe/wiki/Using-sample)
--------
+3. [Using sample](https://github.com/dannycabrera/iOS.TranslateRecipe/wiki/Using-sample)
 
 Xamarin Components Used
 -------
-[BTProgressHUD](http://components.xamarin.com/view/btprogresshud/)
+[BTProgressHUD](http://components.xamarin.com/view/btprogresshud/)<br/>
 [Json.NET](http://components.xamarin.com/view/json.net/)
 
 More information available on the [wiki](https://github.com/dannycabrera/iOS.TranslateRecipe/wiki)
