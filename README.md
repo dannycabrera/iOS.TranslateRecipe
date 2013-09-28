@@ -7,14 +7,12 @@ Introduction
 -------
 This sample shows how to take text in one language, translate it and speak it in another language. The translation is achieved using Microsoft Translator 
 
+![Combined](Screenshots/ViewController.png)
+
 Setup
 -------
 1. Sample requires iOS 7
 2. [Setting up Azure Marketplace & Microsoft Translator API](https://github.com/dannycabrera/iOS.TranslateRecipe/wiki/Setting-up-Azure-Marketplace-&-Microsoft-Translator-API)
-
-Screenshot
--------
-![Combined](Screenshots/ViewController.png)
 
 [Using sample](https://github.com/dannycabrera/iOS.TranslateRecipe/wiki/Using-sample)
 -------
